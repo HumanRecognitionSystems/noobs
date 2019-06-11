@@ -124,13 +124,13 @@ int main(int argc, char *argv[])
 
     qDebug() << "Board revision is " << rev;
 
-    int gpioChannel;
+    int gpioChannel = 2;
     int gpioChannelValue = 0;
+    int gpioChannelOnComplete = 0;
+    int gpioChannelValueOnComplete = 1;
 
     if (rev == 2 || rev == 3)
         gpioChannel = 0;
-    else
-        gpioChannel = 2;
 
     QApplication a(argc, argv);
     RightButtonFilter rbf;
@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
             if (argc > i+1)
                 defaultPartition = argv[i+1];
         }
-          // Allow gpio channel to be specified in commandline
+        // Allow gpio channel to be specified in commandline
         else if (strcmp(argv[i], "-gpiochannel") == 0)
         {
             if (argc > i+1)
@@ -196,6 +196,18 @@ int main(int argc, char *argv[])
         {
             if (argc > i+1)
                 gpioChannelValue = atoi(argv[i+1]);
+        }
+        // Allow gpio channel to be specified in commandline
+        else if (strcmp(argv[i], "-gpiochannel-oncomplete") == 0)
+        {
+            if (argc > i+1)
+                gpioChannelOnComplete = atoi(argv[i+1]);
+        }
+        // Allow gpio channel value i.e pull up or pull down to be specified in commandline
+        else if (strcmp(argv[i], "-gpiochannel-oncompletevalue") == 0)
+        {
+            if (argc > i+1)
+                gpioChannelValueOnComplete = atoi(argv[i+1]);
         }
     }
 
@@ -303,8 +315,12 @@ int main(int argc, char *argv[])
 
     // Main window in the middle of screen
     MainWindow mw(drive, defaultDisplay, splash);
+    if(gpioChannelOnComplete > 0){
+        mw.configureOnCompleteGpio(gpioChannelOnComplete, gpioChannelValueOnComplete);
+    }
     mw.setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, mw.size(), a.desktop()->availableGeometry()));
     mw.show();
+
 
 #ifdef ENABLE_LANGUAGE_CHOOSER
      // Language chooser at the bottom center

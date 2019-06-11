@@ -10,6 +10,7 @@
 #include "util.h"
 #include "twoiconsdelegate.h"
 #include "wifisettingsdialog.h"
+#include "gpiooutput.h"
 #include <QMessageBox>
 #include <QProgressDialog>
 #include <QMap>
@@ -74,7 +75,8 @@ MainWindow::MainWindow(const QString &drive, const QString &defaultDisplay, QSpl
     ui(new Ui::MainWindow),
     _qpd(NULL), _kcpos(0), _defaultDisplay(defaultDisplay),
     _silent(false), _allowSilent(false), _showAll(false), _fixate(false), _splash(splash), _settings(NULL),
-    _hasWifi(false), _numInstalledOS(0), _devlistcount(0), _netaccess(NULL), _displayModeBox(NULL), _drive(drive), _bootdrive(drive)
+    _hasWifi(false), _numInstalledOS(0), _devlistcount(0), _netaccess(NULL), _displayModeBox(NULL), _drive(drive), _bootdrive(drive),
+    _onCompleteGpio(NULL)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
@@ -242,6 +244,14 @@ MainWindow::~MainWindow()
 {
     QProcess::execute("umount /mnt");
     delete ui;
+}
+
+
+void MainWindow::configureOnCompleteGpio(const int &gpioChannel, const int &value)
+{
+    _raiseGpioOnComplete = gpioChannel > 0;
+    _onCompleteGpio = new GpioOutput(gpioChannel);
+    _onCompleteGpioValue = value;
 }
 
 /* Discover which images we have, and fill in the list */
@@ -676,6 +686,10 @@ void MainWindow::onCompleted()
         QMessageBox::information(this,
                                  tr("OS(es) installed"),
                                  tr("OS(es) Installed Successfully"), QMessageBox::Ok);
+
+    if(_raiseGpioOnComplete && _onCompleteGpio){
+        _onCompleteGpio->value(_onCompleteGpioValue);
+    }
     _qpd->deleteLater();
     _qpd = NULL;
     close();

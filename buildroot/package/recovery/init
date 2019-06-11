@@ -64,6 +64,8 @@ else
     DEFAULT_PARTITION=
     GPIO_CHANNEL=
     GPIO_CHANNEL_VALUE=
+    GPIO_ON_COMPLETE_CHANNEL=
+    GPIO_ON_COMPLETE_CHANNEL_VALUE=
 
     if grep -q runinstaller /proc/cmdline; then
         RUN_INSTALLER=-runinstaller
@@ -96,9 +98,15 @@ else
         if [ "${p%%=*}" == "gpiochannelvalue" ] ; then
             GPIO_CHANNEL_VALUE="-gpiochannelvalue ${p#*=}"
         fi
+        if [ "${p%%=*}" == "gpiochannel-oncomplete" ] ; then
+            GPIO_ON_COMPLETE_CHANNEL="-gpiochannel-oncomplete ${p#*=}"
+        fi
+        if [ "${p%%=*}" == "gpiochannel-oncompletevalue" ] ; then
+            GPIO_ON_COMPLETE_CHANNEL_VALUE="-gpiochannel-oncompletevalue ${p#*=}"
+        fi
     done
 
-    /usr/bin/recovery $RUN_INSTALLER $GPIO_TRIGGER $KEYBOARD_NO_TRIGGER $FORCE_TRIGGER $DEFAULT_KBD $DEFAULT_LANG $DEFAULT_DISPLAY $DEFAULT_PARTITION $GPIO_CHANNEL $GPIO_CHANNEL_VALUE -qws 2>/tmp/debug
+    /usr/bin/recovery $RUN_INSTALLER $GPIO_TRIGGER $KEYBOARD_NO_TRIGGER $FORCE_TRIGGER $DEFAULT_KBD $DEFAULT_LANG $DEFAULT_DISPLAY $DEFAULT_PARTITION $GPIO_CHANNEL $GPIO_CHANNEL_VALUE $GPIO_ON_COMPLETE_CHANNEL $GPIO_ON_COMPLETE_CHANNEL_VALUE -qws 2>/tmp/debug
 
 fi
 
