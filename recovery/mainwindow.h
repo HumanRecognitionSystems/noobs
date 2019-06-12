@@ -44,7 +44,7 @@ protected:
     QList <int> _kc;
     int _kcpos;
     const QString _defaultDisplay;
-    bool _silent, _allowSilent, _showAll, _fixate, _usbimages, _raiseGpioOnComplete, _onCompleteGpioValue;
+    bool _silent, _allowSilent, _showAll, _fixate, _usbimages, _raiseGpioOnComplete, _onCompleteGpioValue, _forceSilentInstall;
     static bool _partInited;
     static int _currentMode;
     QSplashScreen *_splash;
