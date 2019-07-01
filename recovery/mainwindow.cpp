@@ -250,7 +250,7 @@ void MainWindow::populate()
     /* Ask user to wait while list is populated */
     if (!_allowSilent)
     {
-        _qpd = new QProgressDialog(tr("Please wait while NOOBS initialises"), QString(), 0, 0, this);
+        _qpd = new QProgressDialog(tr("Please wait while HRS Recovery initialises"), QString(), 0, 0, this);
         _qpd->setWindowFlags(Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
         _qpd->show();
 
@@ -703,7 +703,7 @@ void MainWindow::on_list_currentRowChanged()
 
 void MainWindow::update_window_title()
 {
-    setWindowTitle(QString(tr("HRS - NOOBS v%1 - Built: %2")).arg(VERSION_NUMBER, QString::fromLocal8Bit(__DATE__)));
+    setWindowTitle(QString(tr("HRS Recovery  v%1 - Built: %2")).arg(VERSION_NUMBER, QString::fromLocal8Bit(__DATE__)));
 }
 
 void MainWindow::changeEvent(QEvent* event)
@@ -1629,7 +1629,7 @@ void MainWindow::hideDialogIfNoNetwork()
                 {
                     QMessageBox::critical(this,
                                           tr("No network access"),
-                                          tr("Network access is required to use NOOBS without local images. Please select your wifi network in the next screen."),
+                                          tr("Network access is required to use HRS Recovery without local images. Please select your wifi network in the next screen."),
                                           QMessageBox::Close);
                     on_actionWifi_triggered();
                 }
@@ -1637,7 +1637,7 @@ void MainWindow::hideDialogIfNoNetwork()
                 {
                     QMessageBox::critical(this,
                                           tr("No network access"),
-                                          tr("Wired network access is required to use NOOBS without local images. Please insert a network cable into the network port."),
+                                          tr("Wired network access is required to use HRS Recovery without local images. Please insert a network cable into the network port."),
                                           QMessageBox::Close);
                 }
             }
@@ -1752,7 +1752,7 @@ void MainWindow::on_targetCombo_currentIndexChanged(int index)
         {
             if (QMessageBox::question(this,
                                       tr("Reformat drive?"),
-                                      tr("Are you sure you want to reformat the drive '%1' for use with NOOBS? All existing data on the drive will be deleted!").arg(devname),
+                                      tr("Are you sure you want to reformat the drive '%1' for use with HRS Recovery? All existing data on the drive will be deleted!").arg(devname),
                                       QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
             {
                 InitDriveThread idt("/dev/"+devname);
