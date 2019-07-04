@@ -18,11 +18,11 @@
 #define ENABLE_LANGUAGE_CHOOSER
 
 /* Website launched when launching Arora */
-#define HOMEPAGE  "https://www.hrsid.com"
+#define HOMEPAGE  "http://repository.hrs.cloud/help.html"
 
 /* Location to download the list of available distributions from
  * Multiple lists can be specified by space separating the URLs */
-#define DEFAULT_REPO_SERVER  "https://repository.hrs.cloud/os_list_v3.json"
+#define DEFAULT_REPO_SERVER  "http://repository.hrs.cloud/os_list_v3.json"
 
 /* Size of recovery FAT partition in MB when using reformat drive initialization method. */
 #define RESCUE_PARTITION_SIZE  63
