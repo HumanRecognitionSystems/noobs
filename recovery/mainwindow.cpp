@@ -686,12 +686,11 @@ void MainWindow::onCompleted()
     if(_raiseGpioOnComplete && _onCompleteGpio){
         _onCompleteGpio->value(_onCompleteGpioValue);
     }
-    
-    if (!_silent)
+    else if (!_silent){
         QMessageBox::information(this, 
                                  tr("OS(es) installed"),
                                  tr("OS(es) Installed Successfully"), QMessageBox::Ok);
-
+    }
 
     _qpd->deleteLater();
     _qpd = NULL;
