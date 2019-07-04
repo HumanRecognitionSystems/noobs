@@ -1,1 +1,1 @@
-runinstaller quiet ramdisk_size=32768 root=/dev/ram0 init=/init vt.cur_default=1 elevator=deadline
+runinstaller quiet ramdisk_size=32768 root=/dev/ram0 init=/init vt.cur_default=1 elevator=deadline gpiotriggerenable gpiochannel=40 gpiochannelvalue=1 keyboardtriggerdisable gpiochannel-oncomplete=41 gpiochannel-oncompletevalue=1

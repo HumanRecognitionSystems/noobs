@@ -17,6 +17,7 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QTime>
+#include "gpiooutput.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ class QSettings;
 class QListWidgetItem;
 class QNetworkAccessManager;
 class QMessageBox;
+class GPIOOutput;
 
 class MainWindow : public QMainWindow
 {
@@ -34,6 +36,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(const QString &drive, const QString &defaultDisplay, QSplashScreen *splash, QWidget *parent = 0);
     ~MainWindow();
+    void configureOnCompleteGpio(const int &gpioChannel, const int &value);
 
 protected:
     Ui::MainWindow *ui;
@@ -41,7 +44,7 @@ protected:
     QList <int> _kc;
     int _kcpos;
     const QString _defaultDisplay;
-    bool _silent, _allowSilent, _showAll, _fixate, _usbimages;
+    bool _silent, _allowSilent, _showAll, _fixate, _usbimages, _raiseGpioOnComplete, _onCompleteGpioValue, _forceSilentInstall;
     static bool _partInited;
     static int _currentMode;
     QSplashScreen *_splash;
@@ -55,6 +58,7 @@ protected:
     QTimer _networkStatusPollTimer, _piDrivePollTimer;
     QTime _time;
     QString _model, _repo, _drive, _bootdrive;
+    GpioOutput *_onCompleteGpio;
 
     QMap<QString,QVariantMap> listImages(const QString &folder = "/mnt/os", bool includeInstalled = true);
     virtual void changeEvent(QEvent * event);

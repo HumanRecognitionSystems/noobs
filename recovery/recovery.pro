@@ -21,6 +21,7 @@ SOURCES += \
     initdrivethread.cpp \
     keydetection.cpp \
     gpioinput.cpp \
+    gpiooutput.cpp \
     progressslideshowdialog.cpp \
     confeditdialog.cpp \
     rightbuttonfilter.cpp \
@@ -47,6 +48,7 @@ HEADERS  += \
     config.h \
     keydetection.h \
     gpioinput.h \
+    gpiooutput.h \
     mbr.h \
     progressslideshowdialog.h \
     confeditdialog.h \
